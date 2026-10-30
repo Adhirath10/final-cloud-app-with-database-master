@@ -1,0 +1,50 @@
+
+{% extends "onlinecourse/base.html" %}
+
+{% block title %}
+    Course Details
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5 mb-5">
+
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+            <h2 class="mb-0">{{ course.name }}</h2>
+        </div>
+
+        <div class="card-body">
+            <h4 class="mb-3">Course Description</h4>
+            <p>{{ course.description }}</p>
+
+            <hr>
+
+            <h4 class="mb-3">Course Lessons</h4>
+
+            {% for lesson in course.lesson_set.all %}
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            {{ forloop.counter }}. {{ lesson.title }}
+                        </h5>
+
+                        <p class="card-text">
+                            {{ lesson.content }}
+                        </p>
+                    </div>
+                </div>
+            {% empty %}
+                <div class="alert alert-info">
+                    No lessons are available for this course.
+                </div>
+            {% endfor %}
+
+            <a href="{% url 'onlinecourse:course_list' %}"
+               class="btn btn-secondary mt-3">
+                Back to Courses
+            </a>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
